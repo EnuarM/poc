@@ -5,7 +5,7 @@ import { Form } from "@/components/Form";
 import { GetServerSideProps } from "next";
 import { User } from "@/types/user.interface";
 import { Country } from "@/types/country.interface";
-import { service } from "@/services/service";
+import { service } from "@/services/prefetchService";
 import { useMemo } from "react";
 
 interface HomeProps {

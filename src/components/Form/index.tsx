@@ -2,8 +2,7 @@ import { Controller, useForm } from "react-hook-form";
 import styles from "./Form.module.scss";
 import { Country } from "@/types/country.interface";
 import { User } from "@/types/user.interface";
-import Swal from "sweetalert2";
-import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
+import { useFormHandlers } from "./hooks/useFormHandlers";
 
 interface FormData {
   name: string;
@@ -24,24 +23,8 @@ export const Form = ({ user, countries }: FormProps) => {
       country: user.country,
     },
   });
-  const { executeRecaptcha } = useGoogleReCaptcha();
-
-  const onSubmit = (data: FormData) => {
-    if (!executeRecaptcha) {
-      console.log("reCAPTCHA no está disponible");
-      return;
-    }
-    console.log("📝 Datos del formulario:", data);
-  };
-
-  const onBackButton = () => {
-    Swal.fire({
-      title: "Volver",
-      text: "Estas intentando volver atrás",
-      icon: "info",
-      confirmButtonText: "Cerrar",
-    });
-  };
+  const { onSubmit, handleBack, isSubmitting, isRecaptchaReady } =
+    useFormHandlers();
 
   return (
     <form className={styles.mainContainer} onSubmit={handleSubmit(onSubmit)}>
@@ -81,11 +64,11 @@ export const Form = ({ user, countries }: FormProps) => {
         <button
           type="button"
           className={styles.goBackButton}
-          onClick={onBackButton}
+          onClick={handleBack}
         >
           Volver
         </button>
-        <button type="submit" className={styles.nextButton}>
+        <button type="submit" className={styles.nextButton} disabled={isSubmitting || !isRecaptchaReady}>
           Siguiente
         </button>
       </div>
