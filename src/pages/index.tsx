@@ -3,12 +3,10 @@ import { User } from "@/types/user.interface";
 import { Country } from "@/types/country.interface";
 import { service } from "@/services/prefetchService";
 import dynamic from "next/dynamic";
+import { NoJavaScript } from "@/components/NoJavaScript";
 
 const ClientHome = dynamic(() => import("@/components/Home/ClientHome"), {
   ssr: false,
-  loading: () => (
-    <div>Cargando formulario...</div>
-  ),
 });
 
 interface HomeProps {
@@ -18,7 +16,14 @@ interface HomeProps {
 }
 
 export default function Home({ user, countries }: HomeProps) {
-  return <ClientHome user={user} countries={countries} />;
+  return (
+    <>
+    <ClientHome user={user} countries={countries} />
+    <noscript>
+      <NoJavaScript />
+    </noscript>
+    </>
+  );
 }
 
 export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {

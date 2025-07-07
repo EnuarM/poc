@@ -1,0 +1,171 @@
+@use '../../styles/components/variables' as *;
+.container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: $primary-color;
+  padding: 2rem;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.content {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  padding: 3rem;
+  max-width: 600px;
+  width: 100%;
+  text-align: center;
+}
+
+.title {
+  font-size: 2.5rem;
+  color: #2c3e50;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.description {
+  font-size: 1.1rem;
+  color: #7f8c8d;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+.instructions {
+  text-align: left;
+  margin-bottom: 2rem;
+  
+  h2 {
+    color: #2c3e50;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+}
+
+.browserInstructions {
+  .accordion {
+    margin-bottom: 1rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    
+    summary {
+      padding: 1rem;
+      background: #f8f9fa;
+      cursor: pointer;
+      font-weight: 600;
+      color: #495057;
+      border-radius: 8px;
+      transition: background-color 0.2s ease;
+      
+      &:hover {
+        background: #e9ecef;
+      }
+    }
+    
+    ol {
+      padding: 1rem;
+      margin-left: 12px;
+      
+      li {
+        margin-bottom: 0.5rem;
+        color: #6c757d;
+        line-height: 1.5;
+      }
+    }
+  }
+}
+
+.actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.refreshButton {
+  background: #28a745;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    background: #218838;
+    transform: translateY(-2px);
+  }
+}
+
+.helpLink {
+  background: #007bff;
+  color: white;
+  text-decoration: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    background: #0056b3;
+    transform: translateY(-2px);
+  }
+}
+
+.fallback {
+  border-top: 1px solid #e0e0e0;
+  padding-top: 2rem;
+  
+  p {
+    color: #6c757d;
+    margin-bottom: 1rem;
+  }
+}
+
+.basicVersionLink {
+  display: inline-block;
+  background: #6c757d;
+  color: white;
+  text-decoration: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    background: #5a6268;
+    transform: translateY(-2px);
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+  
+  .content {
+    padding: 2rem;
+  }
+  
+  .title {
+    font-size: 2rem;
+  }
+  
+  .actions {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .refreshButton,
+  .helpLink {
+    width: 100%;
+    max-width: 300px;
+  }
+}
