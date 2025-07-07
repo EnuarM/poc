@@ -34,10 +34,10 @@ export const useFormHandlers = () => {
       console.log("👾 ~ data:", formData);
       if (!executeRecaptcha) {
         Swal.fire({
-          title: t('common.error'),
-          text: t('form.messages.securityNotAvailable'),
+          title: t("common.error"),
+          text: t("form.messages.securityNotAvailable"),
           icon: "error",
-          confirmButtonText: t('common.close'),
+          confirmButtonText: t("common.close"),
         });
         return;
       }
@@ -57,25 +57,27 @@ export const useFormHandlers = () => {
         if (!data.success) {
           Swal.fire({
             title: `ReCAPTCHA score: ${data.score}`,
-            text: t('form.messages.recaptchaError'),
+            text: t("form.messages.recaptchaError"),
             icon: "error",
-            confirmButtonText: t('common.close'),
-          });
+            confirmButtonText: t("common.close"),
+          })
         } else {
           Swal.fire({
-            title: `ReCAPTCHA score: ${data.score}`,
-            text: t('form.messages.successMessage'),
+            title: 'Enviado',
+            text: t("form.messages.successMessage"),
             icon: "success",
-            confirmButtonText: t('common.close'),
-          });
+            confirmButtonText: t("common.close"),
+          }).then(() => {
+            window.location.href = `/next-step?referrer=/review-step&token=${token}`;
+          });;
         }
       } catch (error) {
         console.error("Error al procesar el formulario:", error);
         Swal.fire({
-          title: t('common.error'),
-          text: t('form.messages.submitError'),
+          title: t("common.error"),
+          text: t("form.messages.submitError"),
           icon: "error",
-          confirmButtonText: t('common.close'),
+          confirmButtonText: t("common.close"),
         });
       } finally {
         setIsSubmitting(false);
@@ -86,10 +88,10 @@ export const useFormHandlers = () => {
 
   const handleBack = useCallback(() => {
     Swal.fire({
-      title: t('form.buttons.back'),
-      text: t('form.messages.backMessage'),
+      title: t("form.buttons.back"),
+      text: t("form.messages.backMessage"),
       icon: "info",
-      confirmButtonText: t('common.close'),
+      confirmButtonText: t("common.close"),
     });
   }, [t]);
 
