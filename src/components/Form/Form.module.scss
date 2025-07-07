@@ -47,4 +47,16 @@
 .nextButton {
     @extend .button;
   background-color: $green;
+
+  &:disabled {
+    background-color: $light-gray;
+    cursor: not-allowed;
+  }
+}
+
+.errorMessage {
+  color: $red;
+  font-size: 12px;
+  display: flex;
+  align-self: flex-start;
 }

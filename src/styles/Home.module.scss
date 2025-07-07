@@ -24,6 +24,9 @@ align-items: center;
   @media(max-width: $mobile) {
     max-width: 288px;
   }
+  @media(min-width: $tablet) {
+    max-width: 400px;
+  }
 }
 
 .title {

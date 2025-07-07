@@ -16,12 +16,18 @@ interface FormProps {
 }
 
 export const Form = ({ user, countries }: FormProps) => {
-  const { handleSubmit, control } = useForm<FormData>({
+  const {
+    handleSubmit,
+    control,
+    formState: { errors, isValid },
+  } = useForm<FormData>({
     defaultValues: {
       name: user.name,
       address: user.address,
       country: user.country,
     },
+    reValidateMode: "onChange",
+    mode: "onChange",
   });
   const { onSubmit, handleBack, isSubmitting, isRecaptchaReady } =
     useFormHandlers();
@@ -31,14 +37,30 @@ export const Form = ({ user, countries }: FormProps) => {
       <Controller
         name="name"
         control={control}
+        rules={{
+          required: "Este campo es requerido",
+          minLength: {
+            value: 3,
+            message: "El nombre debe tener al menos 3 caracteres",
+          },
+        }}
         render={({ field }) => (
           <input
-            {...field}
+            value={field.value}
+            onChange={(e) => {
+              const value = e.target.value;
+              const onlyLetters = value.replace(
+                /[^a-zA-ZÀ-ÿ\u00f1\u00d1\s]/g,
+                ""
+              );
+              field.onChange(onlyLetters);
+            }}
             placeholder="Nombre completo"
             className={styles.input}
           />
         )}
       />
+      <div className={styles.errorMessage}>{errors.name?.message}</div>
       <Controller
         name="country"
         control={control}
@@ -56,10 +78,30 @@ export const Form = ({ user, countries }: FormProps) => {
       <Controller
         name="address"
         control={control}
+        rules={{
+          required: "Este campo es requerido",
+          minLength: {
+            value: 5,
+            message: "La dirección debe tener al menos 5 caracteres",
+          },
+        }}
         render={({ field }) => (
-          <input {...field} placeholder="Dirección" className={styles.input} />
+          <input
+            value={field.value}
+            placeholder="Dirección"
+            className={styles.input}
+            onChange={(e) => {
+              const value = e.target.value;
+              const onlyLettersAndNumbers = value.replace(
+                /[^a-zA-ZÀ-ÿ\u00f1\u00d10-9#-\s]/g,
+                ""
+              );
+              field.onChange(onlyLettersAndNumbers);
+            }}
+          />
         )}
       />
+      <div className={styles.errorMessage}>{errors.address?.message}</div>
       <div className={styles.buttonsContainer}>
         <button
           type="button"
@@ -68,7 +110,11 @@ export const Form = ({ user, countries }: FormProps) => {
         >
           Volver
         </button>
-        <button type="submit" className={styles.nextButton} disabled={isSubmitting || !isRecaptchaReady}>
+        <button
+          type="submit"
+          className={styles.nextButton}
+          disabled={isSubmitting || !isRecaptchaReady || !isValid}
+        >
           Siguiente
         </button>
       </div>
