@@ -1,4 +1,5 @@
 import { Controller, useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import styles from "./Form.module.scss";
 import { Country } from "@/types/country.interface";
 import { User } from "@/types/user.interface";
@@ -16,6 +17,7 @@ interface FormProps {
 }
 
 export const Form = ({ user, countries }: FormProps) => {
+  const { t } = useTranslation();
   const {
     handleSubmit,
     control,
@@ -38,10 +40,10 @@ export const Form = ({ user, countries }: FormProps) => {
         name="name"
         control={control}
         rules={{
-          required: "Este campo es requerido",
+          required: t('form.fields.name.required'),
           minLength: {
             value: 3,
-            message: "El nombre debe tener al menos 3 caracteres",
+            message: t('form.fields.name.minLength'),
           },
         }}
         render={({ field }) => (
@@ -55,7 +57,7 @@ export const Form = ({ user, countries }: FormProps) => {
               );
               field.onChange(onlyLetters);
             }}
-            placeholder="Nombre completo"
+            placeholder={t('form.fields.name.placeholder')}
             className={styles.input}
           />
         )}
@@ -66,7 +68,7 @@ export const Form = ({ user, countries }: FormProps) => {
         control={control}
         render={({ field }) => (
           <select {...field} className={styles.input}>
-            <option value="">Selecciona tu país</option>
+            <option value="">{t('form.fields.country.placeholder')}</option>
             {countries.map((country) => (
               <option key={country.code} value={country.code}>
                 {country.name}
@@ -79,16 +81,16 @@ export const Form = ({ user, countries }: FormProps) => {
         name="address"
         control={control}
         rules={{
-          required: "Este campo es requerido",
+          required: t('form.fields.address.required'),
           minLength: {
             value: 5,
-            message: "La dirección debe tener al menos 5 caracteres",
+            message: t('form.fields.address.minLength'),
           },
         }}
         render={({ field }) => (
           <input
             value={field.value}
-            placeholder="Dirección"
+            placeholder={t('form.fields.address.placeholder')}
             className={styles.input}
             onChange={(e) => {
               const value = e.target.value;
@@ -108,14 +110,14 @@ export const Form = ({ user, countries }: FormProps) => {
           className={styles.goBackButton}
           onClick={handleBack}
         >
-          Volver
+          {t('form.buttons.back')}
         </button>
         <button
           type="submit"
           className={styles.nextButton}
           disabled={isSubmitting || !isRecaptchaReady || !isValid}
         >
-          Siguiente
+          {t('form.buttons.next')}
         </button>
       </div>
     </form>

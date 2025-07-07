@@ -1,5 +1,6 @@
 import { useState, useCallback, useEffect } from "react";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
+import { useTranslation } from "react-i18next";
 import Swal from "sweetalert2";
 
 interface FormData {
@@ -9,6 +10,7 @@ interface FormData {
 }
 
 export const useFormHandlers = () => {
+  const { t } = useTranslation();
   const { executeRecaptcha } = useGoogleReCaptcha();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isRecaptchaReady, setIsRecaptchaReady] = useState(false);
@@ -32,10 +34,10 @@ export const useFormHandlers = () => {
       console.log("👾 ~ data:", formData);
       if (!executeRecaptcha) {
         Swal.fire({
-          title: "Error",
-          text: "Sistema de seguridad no disponible. Por favor, recarga la página.",
+          title: t('common.error'),
+          text: t('form.messages.securityNotAvailable'),
           icon: "error",
-          confirmButtonText: "Cerrar",
+          confirmButtonText: t('common.close'),
         });
         return;
       }
@@ -55,41 +57,41 @@ export const useFormHandlers = () => {
         if (!data.success) {
           Swal.fire({
             title: `ReCAPTCHA score: ${data.score}`,
-            text: "Error en validación de reCAPTCHA. Por favor, inténtalo de nuevo.",
+            text: t('form.messages.recaptchaError'),
             icon: "error",
-            confirmButtonText: "Cerrar",
+            confirmButtonText: t('common.close'),
           });
         } else {
           Swal.fire({
             title: `ReCAPTCHA score: ${data.score}`,
-            text: `Validación exitosa. Datos enviados correctamente.`,
+            text: t('form.messages.successMessage'),
             icon: "success",
-            confirmButtonText: "Cerrar",
+            confirmButtonText: t('common.close'),
           });
         }
       } catch (error) {
         console.error("Error al procesar el formulario:", error);
         Swal.fire({
-          title: "Error",
-          text: "Error al enviar el formulario. Por favor, inténtalo de nuevo.",
+          title: t('common.error'),
+          text: t('form.messages.submitError'),
           icon: "error",
-          confirmButtonText: "Cerrar",
+          confirmButtonText: t('common.close'),
         });
       } finally {
         setIsSubmitting(false);
       }
     },
-    [executeRecaptcha]
+    [executeRecaptcha, t]
   );
 
   const handleBack = useCallback(() => {
     Swal.fire({
-      title: "Volver",
-      text: "Estas intentando volver atrás",
+      title: t('form.buttons.back'),
+      text: t('form.messages.backMessage'),
       icon: "info",
-      confirmButtonText: "Cerrar",
+      confirmButtonText: t('common.close'),
     });
-  }, []);
+  }, [t]);
 
   return {
     isRecaptchaReady,

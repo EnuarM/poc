@@ -1,0 +1,45 @@
+{
+  "common": {
+    "loading": "Cargando...",
+    "error": "Error",
+    "success": "Éxito",
+    "close": "Cerrar"
+  },
+  "form": {
+    "title": "Estamos casi listos...",
+    "subtitle": "Actualiza tus datos de contacto",
+    "fields": {
+      "name": {
+        "label": "Nombre completo",
+        "placeholder": "Nombre completo",
+        "required": "Este campo es requerido",
+        "minLength": "El nombre debe tener al menos 3 caracteres"
+      },
+      "address": {
+        "label": "Dirección", 
+        "placeholder": "Dirección",
+        "required": "Este campo es requerido",
+        "minLength": "La dirección debe tener al menos 5 caracteres"
+      },
+      "country": {
+        "label": "País",
+        "placeholder": "Selecciona tu país"
+      }
+    },
+    "buttons": {
+      "back": "Volver",
+      "next": "Siguiente"
+    },
+    "messages": {
+      "backMessage": "Estas intentando volver atrás",
+      "securityNotAvailable": "Sistema de seguridad no disponible. Por favor, recarga la página.",
+      "recaptchaError": "Error en validación de reCAPTCHA. Por favor, inténtalo de nuevo.",
+      "successMessage": "Validación exitosa. Datos enviados correctamente.",
+      "submitError": "Error al enviar el formulario. Por favor, inténtalo de nuevo."
+    }
+  },
+  "meta": {
+    "title": "Confirmación de datos - Mercado Libre",
+    "description": "Página de confirmación de datos personales"
+  }
+}
