@@ -29,9 +29,8 @@ export const useFormHandlers = () => {
 
   const onSubmit = useCallback(
     async (formData: FormData) => {
-      console.log("👾 ~ data:", formData)
-      if (!isRecaptchaReady || !executeRecaptcha) {
-        console.log("reCAPTCHA no está disponible");
+      console.log("👾 ~ data:", formData);
+      if (!executeRecaptcha) {
         Swal.fire({
           title: "Error",
           text: "Sistema de seguridad no disponible. Por favor, recarga la página.",
@@ -93,9 +92,9 @@ export const useFormHandlers = () => {
   }, []);
 
   return {
+    isRecaptchaReady,
     onSubmit,
     handleBack,
     isSubmitting,
-    isRecaptchaReady: !!executeRecaptcha,
   };
 };
