@@ -1,0 +1,36 @@
+@use './components/variables' as *;
+
+.header {
+background-color: $primary-color;
+display: flex;
+height: 60px;
+align-items: center;
+}
+
+.logoContainer {
+  width: 40px;
+  height: 40px;
+  display: flex;
+}
+
+.mainContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 40px;
+  margin: 0 auto;
+
+  @media(max-width: $mobile) {
+    max-width: 288px;
+  }
+}
+
+.title {
+  color: $dark-gray;
+  text-align: center;
+
+  @media(max-width: $mobile) {
+    font-size: 16px;
+  }
+}
