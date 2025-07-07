@@ -1,7 +1,6 @@
 import dynamic from 'next/dynamic'
 import styles from './LanguageSwitcher.module.scss'
 
-// Componente que se renderiza solo en el cliente
 const ClientLanguageSwitcher = dynamic(
   () => import('./ClientLanguageSwitcher'),
   { 

@@ -1,6 +1,5 @@
-import Head from "next/head";
 import Image from "next/image";
-import styles from "@/styles/Home.module.scss";
+import styles from "./Home.module.scss";
 import { Form } from "@/components/Form";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { User } from "@/types/user.interface";
@@ -23,12 +22,6 @@ const ClientHome = ({ user, countries }: ClientHomeProps) => {
 
   return (
     <>
-      <Head>
-        <title>{t('meta.title')}</title>
-        <meta name="description" content={t('meta.description')} />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/MELI.svg" />
-      </Head>
       <main>
         <header className={styles.header}>
           <Image

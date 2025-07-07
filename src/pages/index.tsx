@@ -1,3 +1,4 @@
+import Head from "next/head";
 import { GetServerSideProps } from "next";
 import { User } from "@/types/user.interface";
 import { Country } from "@/types/country.interface";
@@ -18,10 +19,19 @@ interface HomeProps {
 export default function Home({ user, countries }: HomeProps) {
   return (
     <>
-    <ClientHome user={user} countries={countries} />
-    <noscript>
-      <NoJavaScript />
-    </noscript>
+      <Head>
+        <title>Mercado Libre</title>
+        <meta
+          name="description"
+          content="Completa tu información en Mercado Libre"
+        />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/MELI.svg" />
+      </Head>
+      <ClientHome user={user} countries={countries} />
+      <noscript>
+        <NoJavaScript />
+      </noscript>
     </>
   );
 }
