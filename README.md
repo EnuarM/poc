@@ -50,7 +50,6 @@ npm run dev          # Desarrollo local
 npm run build        # Build de producción
 npm run start        # Servidor de producción
 npm run lint         # Linting con ESLint
-npm run type-check   # Verificación de tipos TypeScript
 ```
 ## 📝 Estructura del Proyecto
 ```
