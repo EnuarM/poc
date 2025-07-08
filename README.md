@@ -1,40 +1,128 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+# Step Review POC - Mercado Libre
 
-## Getting Started
+Un proyecto de prueba de concepto que implementa un step de revisión optimizado para alta performance utilizando Next.js con estrategia SSR híbrida.
 
-First, run the development server:
+## 🚀 Características
 
-```bash
+- **SSR Optimizado**: Pre-carga de datos críticos en el servidor
+- **Carga Progresiva**: Dynamic imports para componentes no-bloqueantes
+- **Seguridad Integrada**: Google reCAPTCHA v3 con validación robusta
+- **Internacionalización**: Soporte multi-idioma basado en dominio
+- **Responsive Design**: Experiencia optimizada para web y móvil
+- **Fallback Sin JavaScript**: Tutorial para usuarios con JS deshabilitado
+
+## 🏗️ Arquitectura
+
+### Estrategia Híbrida SSR + Dynamic Loading
+
+```tsx
+// Datos críticos pre-cargados en servidor
+export const getServerSideProps: GetServerSideProps = async () => {
+  const user = await service.getUser();
+  const countries = await service.getCountries();
+  return { props: { user, countries } };
+};
+
+// Componente interactivo cargado dinámicamente
+const ClientHome = dynamic(() => import("@/components/Home/ClientHome"), {
+  ssr: false,
+});
+```
+## 📦 Instalación
+```
+# Clonar repositorio
+git clone <repository-url>
+cd step-review-poc
+
+# Instalar dependencias
+npm install
+
+# Configurar variables de entorno
+cp .env.example .env.local
+
+# Ejecutar en desarrollo
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🛠️ Scripts Disponibles
+```
+npm run dev          # Desarrollo local
+npm run build        # Build de producción
+npm run start        # Servidor de producción
+npm run lint         # Linting con ESLint
+npm run type-check   # Verificación de tipos TypeScript
+```
+## 📝 Estructura del Proyecto
+```
+src/
+├── components/
+│   ├── Form/
+│   │   ├── index.tsx              # Componente formulario
+│   │   ├── Form.module.scss       # Estilos formulario
+│   │   └── hooks/
+│   │       └── useFormHandlers.ts # Hook reCAPTCHA + validaciones
+│   ├── Home/
+│   │   ├── ClientHome.tsx         # Componente principal (ssr: false)
+│   │   └── Home.module.scss       # Estilos home
+│   ├── LanguageSwitcher/
+│   │   ├── index.tsx              # Switcher principal
+│   │   ├── ClientLanguageSwitcher.tsx # Componente cliente
+│   │   └── LanguageSwitcher.module.scss
+│   └── NoJavaScript/
+│       ├── index.tsx              # Tutorial JS deshabilitado
+│       └── NoJavaScript.module.scss
+├── lib/
+│   └── i18n.ts                    # Configuración i18next
+├── locales/
+│   ├── index.ts                   # Export locales
+│   ├── es/
+│   │   └── translation.json       # Traducciones español
+│   └── pt/
+│       └── translation.json       # Traducciones portugués
+├── pages/
+│   ├── _app.tsx                   # App wrapper Next.js
+│   ├── _document.tsx              # Document HTML Next.js
+│   ├── index.tsx                  # Página principal con SSR
+│   ├── api/
+│   │   └── verify-recaptcha.ts    # API reCAPTCHA validation
+│   └── next-step/
+│       ├── index.tsx              # Página siguiente paso
+│       └── NextStep.module.scss
+├── services/
+│   ├── prefetchService.ts         # service.getUser() y getCountries()
+│   └── recaptchaService.ts        # Servicio reCAPTCHA
+├── styles/
+│   ├── globals.css                # Estilos globales
+│   └── components/
+│       └── _variables.scss        # Variables SCSS
+└── types/
+    ├── user.interface.ts          # Interface User
+    └── country.interface.ts       # Interface Country
+```
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+##  📱 Responsive Design
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+- **Desktop:** Experiencia completa con formulario interactivo
+- **Mobile:** Layout optimizado con touch-friendly inputs
+- **Tablet:** Adaptación automática de breakpoints
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
+## 🔒 Seguridad
+```
+- Análisis de comportamiento desde carga del formulario
+- Validación de score en servidor antes de procesar datos
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🚫 Soporte para usuarios sin JavaScript
+```
+- Tutorial paso a paso para habilitar JS
+- Instrucciones específicas por navegador
+- Enlaces de ayuda externa
+```
 
-## Learn More
+## 📊 Performance
+- **LCP**: < 2.5s (carga instantánea con SSR)
+- **FID**: < 100ms (hidratación no-bloqueante)
+- **CLS**: < 0.1 (estructura estable desde SSR)
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
+  
+Desarrollado con ❤️ para Mercado Libre
